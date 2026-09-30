@@ -13,8 +13,14 @@ Output: False
 """
 
 def has_duplicates(product_ids):
-    # Your implementation here
-    pass
+    # A set fits because it stores only distinct product IDs and supports fast membership checks.
+    # Each ID is checked and added once, giving expected O(n) time and O(n) additional space.
+    seen_ids = set()
+    for product_id in product_ids:
+        if product_id in seen_ids:
+            return True
+        seen_ids.add(product_id)
+    return False
 
 
 """
@@ -32,14 +38,17 @@ task_queue.remove_oldest_task() → "Email follow-up"
 
 class TaskQueue:
     def __init__(self):
-        # Your initialization here
-        pass
+        # A deque fits a FIFO queue because it supports adding at the back and removing from the front efficiently.
+        # Both append and popleft take expected O(1) time, while the queue uses O(n) space for n pending tasks.
+        from collections import deque
+
+        self.tasks = deque()
 
     def add_task(self, task):
-        pass
+        self.tasks.append(task)
 
     def remove_oldest_task(self):
-        pass
+        return self.tasks.popleft()
 
 
 """
@@ -57,10 +66,12 @@ tracker.get_unique_count() → 2
 
 class UniqueTracker:
     def __init__(self):
-        pass
+        # A set fits because it automatically keeps only one copy of each value.
+        # Adding and counting are expected O(1), so the tracker uses O(n) space for n distinct values.
+        self.values = set()
 
     def add(self, value):
-        pass
+        self.values.add(value)
 
     def get_unique_count(self):
-        pass
+        return len(self.values)
